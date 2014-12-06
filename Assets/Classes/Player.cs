@@ -3,16 +3,19 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
 
-	int health 	= 10;
-	int xp 		= 0;
+	public int health 	= 10;
+	public int xp 		= 0;
 
-	// Use this for initialization
-	void Start () {
-	
+	void Update() {
+		if (health <= 0) {
+			Destroy(this.gameObject);
+		}
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	void OnCollisionEnter(Collision collision) {
+		Debug.Log (collision);
+		if (collision.gameObject.GetComponent<Enemy> () != null) {
+			health -= 1;
+		}
 	}
 }
