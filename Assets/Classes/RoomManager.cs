@@ -22,9 +22,10 @@ public class RoomManager : MonoBehaviour
 	public void CreateRooms() {
 		//create our firt room and set its position. we do this outside of the loop, 
 		//because we need to get the bounds for the room object in order to calculate the total number of rooms needed.
-		GameObject room 		= GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/RoomBase")) as GameObject;
+		GameObject room 		= GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/RoomRDoor")) as GameObject;
 		Vector3 pos 			= new Vector3(topLeft.x + roomOffsetX, topLeft.y + roomOffsetY, 0);
 		room.transform.position = pos;
+		room.GetComponent<Room> ().Revealed = true;
 		rooms.Add (room);
 
 		//setup the variables we need to generate the right number of rooms
@@ -38,9 +39,10 @@ public class RoomManager : MonoBehaviour
 				if(i == 0 && j == 0) continue; //we already built our first room above, skip this step of the loop
 
 				//clone our room prefab and set its position
-				room 	= GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/RoomBase")) as GameObject;
+				room 	= GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/RoomLRDoor")) as GameObject;
 				pos 	= new Vector3(topLeft.x + roomOffsetX + i*roomWidth, topLeft.y + roomOffsetY - j*roomHeight, 0);
 				room.transform.position = pos;
+				room.GetComponent<Room> ().Revealed = false;
 				rooms.Add(room);
 			}
 		}
