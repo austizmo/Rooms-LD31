@@ -2,6 +2,8 @@
 using System.Collections;
 
 public class Enemy : MonoBehaviour {
+	public int health = 1;
+	public int xpDrop = 1;
 
 	// Use this for initialization
 	void Start () {

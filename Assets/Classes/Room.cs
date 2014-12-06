@@ -25,6 +25,17 @@ public class Room : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider collider) {
-		Revealed = true;
+		if (!Revealed) {
+			Revealed = true;
+			SpawnEnemies ();
+		}
+	}
+
+	private void SpawnEnemies() {
+		int num = Random.Range (0, 5);
+		for (int i = 0; i <= num; i++) {
+			GameObject enemy = Instantiate(Resources.Load("Prefabs/Enemy")) as GameObject;
+			enemy.transform.position = transform.position;
+		}
 	}
 }
