@@ -9,23 +9,25 @@ public class Player : MonoBehaviour {
 	public float moveSpeed = 1;
 	public float jumpSpeed = 10;
 
-	public GameObject attackSprite;
+	private Weapon attackSprite;
+	private float lastAttackTime;
+	public float attackDuration = 0.1f;
 
 	void Start() {
-		Instantiate (attackSprite);
-		attackSprite.transform.parent = gameObject.transform;
-		attackSprite.transform.Translate (0.1f, 0, 0);
-		attackSprite.SetActive (false);
+		attackSprite = gameObject.GetComponentInChildren<Weapon>();
+		attackSprite.gameObject.SetActive (false);
 	}
 
 	void Update() {
 		if (health <= 0) {
 			Destroy(this.gameObject);
 		}
+		if (Time.time > lastAttackTime + attackDuration) {
+			attackSprite.gameObject.SetActive(false);
+		}
 	}
 
 	void OnCollisionEnter(Collision collision) {
-		Debug.Log (collision);
 		if (collision.gameObject.GetComponent<Enemy> () != null) {
 			health -= 1;
 		}
@@ -42,14 +44,14 @@ public class Player : MonoBehaviour {
 		
 		bool attack = Input.GetButtonDown ("Fire2");
 		
-		if (attack) 
-		{
+		if (attack) {
 			Attack ();
-		}
+		} 
 	}
 
 	void Attack() {
 		Debug.Log ("attacking");
-		attackSprite.SetActive (true);
+		attackSprite.gameObject.SetActive (true);
+		lastAttackTime = Time.time;
 	}
 }

@@ -8,11 +8,8 @@ public class RoomManager : MonoBehaviour
 
 	public Vector3 topRight;
 	public Vector3 topLeft;
-
-	List<GameObject> rooms;
-
+	
 	void Start () {
-		rooms 		= new List<GameObject>();
 		topRight 	= gameObject.GetComponentInChildren<Camera>().ViewportToWorldPoint(new Vector3(1, 1, 0));
 		topLeft 	= gameObject.GetComponentInChildren<Camera>().ViewportToWorldPoint(new Vector3(0, 1, 0));
 
@@ -20,13 +17,16 @@ public class RoomManager : MonoBehaviour
 	}
 
 	public void CreateRooms() {
+		GameObject Rooms = new GameObject ();
 		//create our firt room and set its position. we do this outside of the loop, 
 		//because we need to get the bounds for the room object in order to calculate the total number of rooms needed.
 		GameObject room 		= GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/RoomRDoor")) as GameObject;
 		Vector3 pos 			= new Vector3(topLeft.x + roomOffsetX, topLeft.y + roomOffsetY, 0);
 		room.transform.position = pos;
+		room.transform.parent = Rooms.transform;
 		room.GetComponent<Room> ().Revealed = true;
-		rooms.Add (room);
+
+
 
 		//setup the variables we need to generate the right number of rooms
 		float roomWidth 	= room.renderer.bounds.size.x;
@@ -43,7 +43,7 @@ public class RoomManager : MonoBehaviour
 				pos 	= new Vector3(topLeft.x + roomOffsetX + i*roomWidth, topLeft.y + roomOffsetY - j*roomHeight, 0);
 				room.transform.position = pos;
 				room.GetComponent<Room> ().Revealed = false;
-				rooms.Add(room);
+				room.transform.parent = Rooms.transform;
 			}
 		}
 	}
