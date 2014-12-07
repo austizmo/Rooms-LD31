@@ -25,7 +25,7 @@ public class Room : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider collider) {
-		if (!Revealed) {
+		if (!Revealed && collider.gameObject.GetComponent<Player>() != null) {
 			Revealed = true;
 			SpawnEnemies ();
 		}
@@ -36,6 +36,7 @@ public class Room : MonoBehaviour {
 		for (int i = 0; i <= num; i++) {
 			GameObject enemy = Instantiate(Resources.Load("Prefabs/Enemy")) as GameObject;
 			enemy.transform.position = transform.position;
+			enemy.transform.Translate(new Vector3(0,0,-0.5f));
 		}
 	}
 }

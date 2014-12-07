@@ -9,21 +9,22 @@ public class Player : MonoBehaviour {
 	public float moveSpeed = 1;
 	public float jumpSpeed = 10;
 
-	private Weapon attackSprite;
+	private Weapon weapon;
+
 	private float lastAttackTime;
-	public float attackDuration = 0.1f;
+
 
 	void Start() {
-		attackSprite = gameObject.GetComponentInChildren<Weapon>();
-		attackSprite.gameObject.SetActive (false);
+		weapon = gameObject.GetComponentInChildren<Weapon>();
+		weapon.gameObject.SetActive (false);
 	}
 
 	void Update() {
 		if (health <= 0) {
 			Destroy(this.gameObject);
 		}
-		if (Time.time > lastAttackTime + attackDuration) {
-			attackSprite.gameObject.SetActive(false);
+		if (Time.time > lastAttackTime + weapon.attackDuration) {
+			weapon.gameObject.SetActive(false);
 		}
 	}
 
@@ -50,8 +51,7 @@ public class Player : MonoBehaviour {
 	}
 
 	void Attack() {
-		Debug.Log ("attacking");
-		attackSprite.gameObject.SetActive (true);
+		weapon.gameObject.SetActive (true);
 		lastAttackTime = Time.time;
 	}
 }

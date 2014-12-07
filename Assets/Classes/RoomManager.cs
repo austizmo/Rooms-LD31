@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 public class RoomManager : MonoBehaviour 
 {
-	public float roomOffsetX = 0.15f;
-	public float roomOffsetY = -0.15f;
+	public float roomOffsetX = 1f;
+	public float roomOffsetY = -1f;
 
 	public Vector3 topRight;
 	public Vector3 topLeft;
